@@ -1,0 +1,417 @@
+
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Himajomo Clone Mejorado</title><style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #ede8e8;
+      color: #333;
+      cursor: none;
+      overflow-x: hidden;
+    }
+
+    .custom-cursor {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #000;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transition: all 0.1s ease;
+    }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image: url('soledadtierra.gif');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+
+    .hero-content {
+      text-align: center;
+      z-index: 2;
+      color: #fff;
+      position: relative;
+      width: 100%;
+      padding: 0 20px;
+    }
+
+    .hero h1,
+    .hero p {
+      opacity: 0;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+.hero p {
+  font-size: 1.5rem;
+  margin-top: 40px; /* Aumentar el espacio superior para separar subtítulo del título */
+  top: 55%; /* Mover el subtítulo ligeramente hacia abajo */
+}
+
+    .hero h1.active,
+    .hero p.active {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+
+    .hero h1.fade-out,
+    .hero p.fade-out {
+      opacity: 0;
+      transform: translate(-50%, -100%);
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding: 50px;
+    }
+
+    .image-item {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 1;
+    }
+
+    .image-item a {
+      display: block;
+      position: relative;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .image-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .image-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .image-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .image-item:hover .image-overlay {
+      opacity: 1;
+    }
+
+    .menu-toggle {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 30px;
+      height: 3px;
+      background-color: #fff;
+      margin: 6px 0;
+      transition: 0.4s;
+    }
+
+    .menu {
+      position: fixed;
+      top: 0;
+      left: -300px;
+      width: 300px;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 50px 20px;
+      transition: 0.4s;
+      z-index: 999;
+    }
+
+    .menu.active {
+      left: 0;
+    }
+
+    .menu ul {
+      list-style-type: none;
+    }
+
+    .menu ul li {
+      margin-bottom: 20px;
+    }
+
+    .menu ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+
+    .menu ul li a:hover {
+      color: #007bff;
+    }
+
+    footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin-top: 50px;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+    }
+  </style></head><body>
+  <div class="custom-cursor"></div>
+
+  <div class="menu-toggle" id="menuToggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <nav class="menu" id="menu">
+    <ul>
+      <li><a href="#home">Inicio</a></li>
+      <li><a href="#about">Acerca de</a></li>
+      <li><a href="#portfolio">Portafolio</a></li>
+      <li><a href="#contact">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1 id="heroTitle">Esta es mi Tierra, Mi Casa, Menorca.</h1>
+      <p id="heroSubtitle">Un Paraiso Natural en el Mediterraneo</p>
+    </div>
+  </section>
+
+
+
+
+  <!-- Sección de título y columnas de texto -->
+  <section style="text-align: center; margin: 50px 0;">
+    <h2 style="font-size: 2.5rem; margin-bottom: 30px;">Bienvenidos a Nuestra Tierra</h2>
+    <h6 style="font-size: 1.5rem; margin-bottom: 30px;">Si Deseas puedes escucharme Aqui</h6>
+
+  <!-- Audio MP3 centrado -->
+  <div style="text-align: center; margin-bottom: 30px;">
+    <audio controls style="width: 100%; max-width: 600px;">
+      <source src="ruta/del/audio.mp3" type="audio/mp3">
+      Tu navegador no soporta el elemento de audio.
+    </audio>
+  </div>
+    <div style="display: flex; justify-content: center; gap: 20px;">
+      <div style="flex: 1; max-width: 45%; text-align: justify;">
+        <p>La Tierra es un lugar de belleza y diversidad natural que debemos proteger. Cada paisaje, cada especie que habita en este planeta, forma parte de un ecosistema delicado que ha evolucionado a lo largo de millones de años, ajustándose a las fuerzas naturales y a los cambios cíclicos. Sin embargo, en las últimas décadas, la intervención humana ha acelerado un proceso de destrucción que parece irreversible. Pero, ¿realmente es responsabilidad de todos reducir nuestra huella ambiental? ¿O estamos siendo víctimas de una narrativa simplificada que pone el peso de la culpa sobre los hombros de la población mientras los verdaderos culpables siguen operando con impunidad?</p>
+
+<p>Es una pregunta que cada vez más personas se están haciendo. Nos han hecho creer que pequeñas acciones individuales, como reciclar o reducir el consumo de agua, son suficientes para salvar al planeta. Sin embargo, la realidad es mucho más compleja. Si bien nuestras acciones diarias son importantes, la magnitud del problema ambiental no se originó en la conducta del ciudadano promedio, sino en un sistema económico que promueve el consumo excesivo, la producción desenfrenada y el desecho constante.</p>
+
+<p>Piensa por un momento: en nuestras sociedades modernas, compramos más desperdicios que alimentos. Los empaques, envoltorios y envases de plástico que vienen con nuestros productos superan en cantidad a lo que realmente necesitamos. ¿Es esta una elección consciente del consumidor? No. Este modelo de consumo es una consecuencia de la industrialización y del imperativo de las grandes corporaciones de maximizar sus ganancias a costa del bienestar del planeta. En lugar de promover un sistema más eficiente y sostenible, los intereses económicos prefieren generar más productos desechables que aumenten sus márgenes de ganancia. Al final, somos nosotros los que pagamos por productos cuyo ciclo de vida termina en un vertedero en cuestión de días o incluso horas.</p>
+
+<p>Además, las industrias más contaminantes del mundo —como el petróleo, la minería, el transporte aéreo y marítimo, y la agricultura intensiva— continúan operando sin restricciones reales. Mientras se nos pide que consumamos menos electricidad en nuestras casas, estas corporaciones emiten toneladas de gases de efecto invernadero diariamente. Mientras nos culpabilizan por usar una bolsa de plástico, estas empresas vierten millones de litros de residuos tóxicos en ríos, mares y suelos. ¿Realmente la población activa es la mayor responsable de la crisis ambiental, o es el aparato económico que ha diseñado un sistema en el que es casi imposible no contaminar?</p>
+
+<p>La paradoja es evidente. Se nos exige responsabilidad individual en un sistema diseñado para hacernos dependientes de productos y servicios que destruyen el planeta. Nos empujan a adoptar prácticas “verdes” mientras las mismas compañías que promueven esas prácticas financian políticas que retrasan la transición hacia energías limpias. ¿Qué sentido tiene que una persona común cambie su automóvil por una bicicleta cuando las principales fuentes de contaminación siguen intactas? </p>
+
+      </div>
+      <div style="flex: 1; max-width: 45%; text-align: justify;">
+<p>El esfuerzo individual es importante, pero sin un cambio sistémico real, no podremos revertir los daños que ya hemos causado.</p>
+<p>El cambio climático, la deforestación, la contaminación de los océanos y la pérdida de biodiversidad no son fenómenos aislados que puedan solucionarse con acciones individuales. Estos problemas son el resultado directo de un modelo económico extractivista y depredador que ha puesto el lucro por encima de la vida. La evolución de las sociedades humanas, desde la Revolución Industrial hasta la era digital, ha traído consigo avances tecnológicos increíbles, pero también un devastador costo ambiental. Y aunque muchos dirán que es el precio del progreso, es esencial cuestionar: ¿progreso para quién?</p>
+
+<p>El egocentrismo del poder y la dominación en todas sus facetas han llevado a una situación en la que los recursos naturales son vistos únicamente como materias primas para la explotación, y la naturaleza es tratada como una mera herramienta para el crecimiento económico. Las grandes potencias económicas se han beneficiado durante siglos del saqueo de la Tierra, mientras que las comunidades más vulnerables —aquellas que viven en armonía con la naturaleza— son las que sufren las peores consecuencias.</p>
+
+<p>Son muchas las preguntas y dudas que surgen al vivir en un mundo tan absurdo e incomprensible como el que habitamos. Nos enfrentamos a una verdadera paradoja: mientras las grandes corporaciones y gobiernos siguen devastando el planeta, se nos pide a los individuos que carguemos con la culpa y la responsabilidad del desastre ecológico. Pero si analizamos los datos, la regla de tres no cuadra. La narrativa dominante está lejos de la verdad. ¿Nos están vendiendo un pastel?</p>
+
+<p>En el fondo, el problema radica en un sistema que prioriza las ganancias económicas por encima del bienestar social y ambiental. Se nos ofrece una falsa solución: creer que con pequeños gestos individuales podemos solucionar una crisis global provocada por décadas de explotación masiva de los recursos naturales. Pero la realidad es que sin cambios estructurales, cualquier esfuerzo individual será en vano.</p>
+
+<p>Por ello, es crucial repensar el sistema desde la raíz. Necesitamos cambios que vayan más allá de lo simbólico o superficial, y que impliquen transformaciones profundas en la forma en que producimos, consumimos y vivimos. No basta con que unas pocas personas reciclen o reduzcan su consumo de energía. Debemos exigir responsabilidad a las grandes corporaciones y gobiernos que controlan las políticas ambientales y que continúan beneficiándose de la destrucción del planeta. La lucha por el medio ambiente no es solo una cuestión de responsabilidad individual, sino de justicia social y económica.</p>
+
+<p>De esto y mucho más hablaremos en nuestros apartados, y te animamos a que participes. Porque el verdadero cambio comienza cuando entendemos que el problema no está en las pequeñas acciones cotidianas, sino en las grandes estructuras que controlan el mundo. Solo cuando logremos transformar esas estructuras, podremos realmente proteger nuestro hogar común: la Tierra.</p>
+      </div>
+    </div>
+  </section>
+
+
+
+  <div class="image-grid">
+    <div class="image-item">
+      <a href="https://websim.org/naturaleza" target="_blank">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi2QWHWhakQIQvF3_z69L1PKVbKZ0iERpzAS_HlIPZ5wPUCs-ExqTdFo_ZXKgsmDIstqPobXQ4bn5kiwn4a1Ae2Mc_4KD8yISPvZJ9ifR9Ey7cgYpgM7FQUBQOBAztkfOkoGo1p4PTi-AFEbBAw24lpH2Y16NoKQhDUC3b6HKcEfZaP6EwqMhg_OK9hiAY7/s1024/primera.jpg" alt="Imagen de naturaleza aleatoria" width="800" height="800">
+        <div class="image-overlay">Naturaleza</div>
+      </a>
+    </div>
+    <div class="image-item">
+      <a href="https://websim.org/arquitectura" target="_blank">
+        <img src="ruta/correcta/segunda.jpg" alt="Imagen de arquitectura aleatoria" width="800" height="800">
+        <div class="image-overlay">Arquitectura</div>
+      </a>
+    </div>
+    <div class="image-item">
+      <a href="https://websim.org/personas" target="_blank">
+        <img src="ruta/correcta/tercera.jpg" alt="Imagen de personas aleatorias" width="800" height="800">
+        <div class="image-overlay">Personas</div>
+      </a>
+    </div>
+    <div class="image-item">
+      <a href="https://websim.org/comida" target="_blank">
+        <img src="ruta/correcta/cuarta.jpg" alt="Imagen de comida aleatoria" width="800" height="800">
+        <div class="image-overlay">Comida</div>
+      </a>
+    </div>
+    <div class="image-item">
+      <a href="https://websim.org/animales" target="_blank">
+        <img src="ruta/correcta/quinta.jpg" alt="Imagen de animales aleatorios" width="800" height="800">
+        <div class="image-overlay">Animales</div>
+      </a>
+    </div>
+    <div class="image-item">
+      <a href="https://websim.org/tecnologia" target="_blank">
+        <img src="ruta/correcta/sexta.jpg" alt="Imagen de tecnología aleatoria" width="800" height="800">
+        <div class="image-overlay">Tecnología</div>
+      </a>
+    </div>
+  </div>
+
+
+  <footer>
+    <p>&copy; 2024 Himajomo Clone. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    const titleSubtitlePairs = [
+      {
+        title: "Esta es mi Tierra, Mi Casa, Menorca.",
+        subtitle: "Un Paraiso Natural en el Mediterraneo"
+      },
+      {
+        title: "Tú Mundo, es mi Mundo Tambien",
+        subtitle: "Y el Mundo que heredarán Tus Hijos"
+      },
+      {
+        title: "Nuestra Tierra está en peligro",
+        subtitle: "La huella humana, la está devastando"
+      },
+      {
+        title: "Salvarla es responsabilidad de Todos",
+        subtitle: "El poder, está en nuestras Manos"
+      },
+      {
+        title: "Esta es mi Tierra, Hoy en Dia",
+        subtitle: "Un Paraiso Natural de Basura"
+      },
+      {
+        title: "¡Yá....Es hora de actuar!",
+        subtitle: "El cambio ya a Comenzado"
+      },
+      {
+        title: "La Contaminación:És un enemigo silencioso",
+        subtitle: "Actúa localmente, Piensa globalmente"
+      },
+      {
+        title: "Cada acción cuenta, cada decisión importa",
+        subtitle: "Cuidemos de nuestro Mundo, Juntos lo Lograremos"
+      }
+     
+    ];
+
+    const titleElement = document.getElementById("heroTitle");
+    const subtitleElement = document.getElementById("heroSubtitle");
+    let currentIndex = 0;
+
+    function showTitleAndSubtitle(index) {
+      titleElement.classList.remove('active', 'fade-out');
+      subtitleElement.classList.remove('active', 'fade-out');
+
+      setTimeout(() => {
+        titleElement.textContent = titleSubtitlePairs[index].title;
+        subtitleElement.textContent = titleSubtitlePairs[index].subtitle;
+
+        titleElement.classList.add('active');
+        subtitleElement.classList.add('active');
+      }, 500);
+    }
+
+    function fadeOutCurrentText() {
+      titleElement.classList.add('fade-out');
+      subtitleElement.classList.add('fade-out');
+    }
+
+    function cycleTexts() {
+      fadeOutCurrentText();
+      setTimeout(() => {
+        currentIndex = (currentIndex + 1) % titleSubtitlePairs.length;
+        showTitleAndSubtitle(currentIndex);
+      }, 500);
+    }
+
+    showTitleAndSubtitle(0);
+    setInterval(cycleTexts, 10000);
+
+    const cursor = document.querySelector('.custom-cursor');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.top = `${e.clientY}px`;
+      cursor.style.left = `${e.clientX}px`;
+    });
+
+    const menuToggle = document.getElementById('menuToggle');
+    const menu = document.getElementById('menu');
+
+    menuToggle.addEventListener('click', () => {
+      menu.classList.toggle('active');
+      menuToggle.classList.toggle('active');
+    });
+  </script>
+</body></html>
